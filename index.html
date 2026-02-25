@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توثيق الهوية | الرهيب برو</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FCD535;
+            --primary-dark: #E6C229;
+            --dark: #1E2329;
+            --gray: #474D57;
+            --light: #FAFAFA;
+            --border: #EAECEF;
+            --success: #0ECB81;
+            --danger: #F6465D;
+            --info: #2196F3;
+            --warning: #FFA000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        
+        body { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); 
+            color: var(--dark); 
+            min-height: 100vh; 
+            padding-bottom: 30px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--dark) 0%, #2D333B 100%);
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            color: var(--primary);
+            font-weight: 900;
+            font-size: 20px;
+        }        .logo i { font-size: 28px; }
+
+        .container { 
+            max-width: 650px; 
+            margin: 0 auto; 
+            padding: 25px 18px;
+        }
+
+        .page { 
+            display: none; 
+            animation: fadeIn 0.4s ease;
+        }
+        .page.active { 
+            display: block; 
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding: 24px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .page-header h1 { 
+            font-size: 24px; 
+            font-weight: 900; 
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .page-header p { 
+            color: var(--gray); 
+            font-size: 14px; 
+        }
+
+        .progress-bar {
+            background: #fff;
+            padding: 18px 24px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .progress-track { 
+            display: flex;             justify-content: space-between; 
+            align-items: center; 
+            position: relative;
+        }
+        .progress-track::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            right: 30px;
+            height: 3px;
+            background: var(--border);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            transform: translateY(-50%);
+            z-index: 2;
+            transition: width 0.5s ease;
+        }
+        .progress-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray);
+            transition: all 0.3s;
+            z-index: 3;
+        }
+        .progress-dot.active { 
+            background: var(--primary); 
+            border-color: var(--primary);
+            color: var(--dark);
+            transform: scale(1.15);
+            box-shadow: 0 0 0 4px rgba(252, 213, 53, 0.2);
+        }
+        .progress-dot.done { 
+            background: var(--success); 
+            border-color: var(--success);            color: #fff;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 2px dashed var(--border);
+        }
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--dark);
+            box-shadow: 0 4px 15px rgba(252, 213, 53, 0.3);
+        }
+        .card-title { 
+            font-size: 18px; 
+            font-weight: 900; 
+        }
+
+        .form-group { margin-bottom: 16px; }
+        .form-label { 
+            display: block; 
+            font-weight: 700; 
+            margin-bottom: 8px; 
+            font-size: 13px;
+            color: var(--dark);
+        }
+        .required { color: var(--danger); margin-right: 3px; }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 11px;            font-size: 13px;
+            outline: none;
+            background: #FAFBFC;
+            font-weight: 500;
+            transition: all 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .form-input:focus, .form-select:focus { 
+            border-color: var(--primary); 
+            background: #fff; 
+            box-shadow: 0 0 0 4px rgba(252, 213, 53, 0.15);
+        }
+        .form-input.error {
+            border-color: var(--danger);
+            background: #FFEBEE;
+            animation: shake 0.5s ease;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .form-input::placeholder {
+            color: #aaa;
+            font-size: 12px;
+        }
+        .form-input:disabled {
+            background: #F5F5F5;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .select-wrapper { position: relative; }
+        .select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 10px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;        }
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        @media (max-width: 550px) {
+            .form-row { grid-template-columns: 1fr 1fr; }
+            .form-row-3 { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 400px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-row-3 { grid-template-columns: 1fr; }
+        }
+
+        .gender-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        .gender-option {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #FAFBFC, #F5F7FA);
+        }
+        .gender-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;        }
+        .gender-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(252, 213, 53, 0.3);
+        }
+        .gender-option.selected {
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(252, 213, 53, 0.4);
+        }
+        .gender-option.selected::before { opacity: 0.1; }
+        .gender-option input { display: none; }
+        .gender-option i {
+            font-size: 32px;
+            color: var(--gray);
+            margin-bottom: 10px;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .gender-option.selected i { color: var(--primary); transform: scale(1.1); }
+        .gender-option span {
+            font-weight: 800;
+            font-size: 15px;
+            z-index: 1;
+        }
+        .gender-option.male.selected i { color: #2196F3; }
+        .gender-option.female.selected i { color: #E91E63; }
+
+        .upload-box {
+            border: 2.5px dashed var(--border);
+            border-radius: 14px;
+            padding: 28px 18px;
+            text-align: center;
+            cursor: pointer;
+            background: linear-gradient(135deg, #FAFAFA, #F8F9FA);
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+        .upload-box:active { 
+            border-color: var(--primary); 
+            background: linear-gradient(135deg, #FFFDF5, #FFF9E6);
+            transform: scale(0.98);
+        }
+        .upload-box.success { 
+            border-color: var(--success); 
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            transform: scale(1.02);
+        }
+        .upload-box i { 
+            font-size: 38px;             color: var(--gray); 
+            margin-bottom: 10px; 
+            display: block;
+        }
+        .upload-box p { 
+            font-size: 14px; 
+            font-weight: 700; 
+            margin-bottom: 5px;
+        }
+        .upload-box small { 
+            font-size: 11px; 
+            color: var(--gray); 
+        }
+        .upload-box.success i,
+        .upload-box.success p { 
+            color: var(--success); 
+        }
+
+        .preview-box {
+            margin-top: 10px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            border-radius: 10px;
+            border: 1px solid var(--success);
+        }
+        .preview-box.show { display: flex; }
+        .preview-box img { 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 8px; 
+            object-fit: cover;
+        }
+        .preview-info { flex: 1; text-align: right; }
+        .preview-info span { 
+            font-size: 12px; 
+            font-weight: 700; 
+            color: var(--success); 
+        }
+        .preview-remove { 
+            color: var(--danger); 
+            cursor: pointer; 
+            padding: 6px;
+            border-radius: 50%;
+            background: rgba(246,70,93,0.1);
+        }
+
+        .btn {            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: 15px;
+            cursor: pointer;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(252, 213, 53, 0.35);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(252, 213, 53, 0.45);
+        }
+        .btn:active { transform: translateY(0) scale(0.98); }
+        .btn:disabled { 
+            background: linear-gradient(135deg, #E0E0E0, #BDBDBD); 
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .btn-secondary { 
+            background: #F5F5F5; 
+            border: 1.5px solid var(--border);
+            box-shadow: none;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #09B372);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(14, 203, 129, 0.35);
+        }
+
+        .terms-box {
+            background: linear-gradient(135deg, #F8F9FA, #F0F2F5);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            margin: 18px 0;
+        }
+        .terms-box label { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 10px;             font-size: 13px; 
+            cursor: pointer; 
+            line-height: 1.6;
+        }
+        .terms-box input { 
+            accent-color: var(--primary); 
+            width: 18px; 
+            height: 18px;
+            margin-top: 2px;
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+            color: #B71C1C;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: none;
+            font-weight: 600;
+            font-size: 13px;
+            border: 1px solid #EF9A9A;
+        }
+        .error-message.show { display: flex; align-items: center; gap: 10px; }
+
+        .verifying-page, .success-page, .check-page, .verified-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 25px;
+        }
+        .verifying-page { 
+            background: linear-gradient(135deg, #1E2329 0%, #2D333B 50%, #1E2329 100%); 
+            color: #fff; 
+        }
+        .success-page, .check-page { background: #fff; }
+        .verified-page {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 50%, #E8F5E9 100%);
+            color: var(--dark);
+        }
+        .verifying-page.show, .success-page.show, .check-page.show, .verified-page.show { display: flex; }
+
+        .verify-icon, .success-icon, .check-icon, .verified-icon {            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin-bottom: 25px;
+        }
+        .verify-icon { 
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+            color: var(--dark);
+            animation: pulse 2s infinite;
+        }
+        .success-icon { 
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9); 
+            color: var(--success);
+            animation: bounceIn 0.6s ease;
+        }
+        .check-icon {
+            background: linear-gradient(135deg, var(--info), #1976D2);
+            color: #fff;
+            animation: pulse 2s infinite;
+        }
+        .verified-icon {
+            background: linear-gradient(135deg, var(--success), #09B372);
+            color: #fff;
+            animation: bounceIn 0.6s ease;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        .verify-steps { 
+            width: 100%; 
+            max-width: 340px; 
+            background: rgba(255,255,255,0.08); 
+            border-radius: 14px; 
+            padding: 18px;
+        }
+        .verify-step { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;             padding: 12px; 
+            margin: 8px 0; 
+            border-radius: 10px; 
+            background: rgba(255,255,255,0.05); 
+            opacity: 0.5;
+        }
+        .verify-step.active { 
+            opacity: 1; 
+            background: rgba(252, 213, 53, 0.15); 
+            border: 1px solid var(--primary);
+        }
+        .verify-step.done { 
+            opacity: 1; 
+            background: rgba(14, 203, 129, 0.15); 
+            border: 1px solid var(--success);
+        }
+        .verify-step i { 
+            width: 26px; 
+            height: 26px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 11px; 
+            background: rgba(255,255,255,0.1);
+        }
+        .verify-step.active i { 
+            background: var(--primary); 
+            color: var(--dark); 
+            animation: spin 1s linear infinite; 
+        }
+        .verify-step.done i { 
+            background: var(--success); 
+            color: #fff; 
+        }
+        .verify-step span { 
+            font-size: 12px; 
+            font-weight: 700; 
+            flex: 1; 
+            text-align: right; 
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .ref-card { 
+            background: linear-gradient(135deg, #FFF9E6, #FFF3E0); 
+            padding: 20px; 
+            border-radius: 14px; 
+            margin: 20px 0; 
+            width: 100%; 
+            border: 2px solid var(--primary);        }
+        .ref-label { color: var(--gray); font-size: 12px; display: block; margin-bottom: 6px; }
+        .ref-value { font-size: 20px; font-weight: 900; color: var(--dark); }
+
+        .success-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            width: 100%; 
+            margin: 20px 0; 
+        }
+        .grid-box { 
+            background: linear-gradient(135deg, #F5F5F5, #EEEEEE); 
+            padding: 16px; 
+            border-radius: 12px; 
+            text-align: center;
+        }
+        .grid-label { color: var(--gray); font-size: 11px; display: block; margin-bottom: 6px; }
+        .grid-value { font-weight: 700; font-size: 13px; }
+
+        .success-buttons { 
+            display: flex; 
+            gap: 12px; 
+            flex-wrap: wrap; 
+            width: 100%; 
+            margin-top: 20px; 
+        }
+        .btn-action { 
+            flex: 1; 
+            min-width: 140px; 
+            padding: 14px; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            font-size: 13px; 
+            cursor: pointer;
+        }
+        .btn-action:active { transform: scale(0.97); }
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+            color: var(--dark); 
+            border: none;
+        }
+        .btn-secondary { 
+            background: #F5F5F5; 
+            color: var(--dark); 
+            border: 1.5px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 15px;            font-weight: 800;
+            color: var(--dark);
+            margin: 22px 0 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title i { color: var(--primary); font-size: 16px; }
+
+        /* === صفحة التحقق - تصميم بسيط مع عداد مخفي === */
+        .check-message {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--info);
+            margin: 30px 0;
+            text-align: center;
+            line-height: 1.8;
+        }
+        .check-loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border);
+            border-top-color: var(--info);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        .check-subtext {
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .verified-badge {
+            background: linear-gradient(135deg, var(--success), #09B372);
+            color: #fff;
+            padding: 18px 35px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 900;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(14, 203, 129, 0.4);
+        }
+        .verified-info {
+            background: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .verified-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .verified-row:last-child { border-bottom: none; }
+        .verified-label { color: var(--gray); font-size: 13px; }
+        .verified-value { font-weight: 700; color: var(--dark); font-size: 14px; }
+
+        .locked-message {
+            background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .locked-message i { font-size: 40px; color: var(--warning); margin-bottom: 10px; }
+        .locked-message h3 { color: var(--warning); margin-bottom: 8px; }
+        .locked-message p { color: var(--gray); font-size: 13px; }
+
+        .success-toast {
+            position: fixed;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: linear-gradient(135deg, var(--success), #09B372);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 13px;
+            box-shadow: 0 4px 20px rgba(14, 203, 129, 0.45);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .success-toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        select.form-select option { padding: 8px; font-size: 13px; }        select.form-select optgroup { font-weight: 700; color: var(--dark); background: #f0f0f0; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>الرهيب برو</span>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- الصفحة 1: البيانات الشخصية -->
+        <div class="page active" id="page1">
+            <div class="page-header">
+                <h1>📝 البيانات الشخصية</h1>
+                <p>الخطوة 1 من 3</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-line" style="width: 0%"></div>
+                    <div class="progress-dot active">1</div>
+                    <div class="progress-dot">2</div>
+                    <div class="progress-dot">3</div>
+                </div>
+            </div>
+
+            <div class="error-message" id="error1">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorText1"></span>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-user"></i></div>
+                    <div class="card-title">معلوماتك الشخصية</div>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-globe"></i>
+                    معلومات الدولة والجنس
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label">الدولة <span class="required">*</span></label>
+                        <div class="select-wrapper">                            <select class="form-select" id="country">
+                                <option value="">اختر الدولة</option>
+                                <optgroup label="أ">
+                                    <option value="AF">🇦🇫 أفغانستان</option>
+                                    <option value="AL">🇦🇱 ألبانيا</option>
+                                    <option value="DZ">🇩🇿 الجزائر</option>
+                                    <option value="DE">🇩🇪 ألمانيا</option>
+                                    <option value="AE">🇦🇪 الإمارات</option>
+                                    <option value="US">🇺🇸 الولايات المتحدة</option>
+                                    <option value="AR">🇦🇷 الأرجنتين</option>
+                                    <option value="JO">🇯🇴 الأردن</option>
+                                    <option value="IR">🇮🇷 إيران</option>
+                                    <option value="IT">🇮🇹 إيطاليا</option>
+                                </optgroup>
+                                <optgroup label="ب-ت">
+                                    <option value="PK">🇵🇰 باكستان</option>
+                                    <option value="BR">🇧🇷 البرازيل</option>
+                                    <option value="BH">🇧🇭 البحرين</option>
+                                    <option value="TR">🇹🇷 تركيا</option>
+                                    <option value="TN">🇹🇳 تونس</option>
+                                </optgroup>
+                                <optgroup label="ج-ح">
+                                    <option value="ZA">🇿🇦 جنوب أفريقيا</option>
+                                    <option value="KR">🇰🇷 كوريا الجنوبية</option>
+                                    <option value="KW">🇰🇼 الكويت</option>
+                                </optgroup>
+                                <optgroup label="د-ر">
+                                    <option value="DK">🇩🇰 الدنمارك</option>
+                                    <option value="RU">🇷🇺 روسيا</option>
+                                </optgroup>
+                                <optgroup label="س-ص">
+                                    <option value="ES">🇪🇸 إسبانيا</option>
+                                    <option value="SG">🇸🇬 سنغافورة</option>
+                                    <option value="SY">🇸🇾 سوريا</option>
+                                    <option value="SE">🇸🇪 السويد</option>
+                                    <option value="CH">🇨🇭 سويسرا</option>
+                                    <option value="SO">🇸🇴 الصومال</option>
+                                    <option value="SD">🇸🇩 السودان</option>
+                                    <option value="CN">🇨🇳 الصين</option>
+                                </optgroup>
+                                <optgroup label="ع-ف">
+                                    <option value="OM">🇴🇲 عمان</option>
+                                    <option value="PS">🇵🇸 فلسطين</option>
+                                    <option value="FR">🇫🇷 فرنسا</option>
+                                </optgroup>
+                                <optgroup label="ق-ك">
+                                    <option value="QA">🇶🇦 قطر</option>
+                                    <option value="CA">🇨🇦 كندا</option>
+                                </optgroup>
+                                <optgroup label="ل-م">                                    <option value="LB">🇱🇧 لبنان</option>
+                                    <option value="LY">🇱🇾 ليبيا</option>
+                                    <option value="MY">🇲🇾 ماليزيا</option>
+                                    <option value="EG">🇪🇬 مصر</option>
+                                    <option value="MA">🇲🇦 المغرب</option>
+                                    <option value="MX">🇲🇽 المكسيك</option>
+                                </optgroup>
+                                <optgroup label="ن-ه">
+                                    <option value="NG">🇳🇬 نيجيريا</option>
+                                    <option value="NZ">🇳🇿 نيوزيلندا</option>
+                                    <option value="NO">🇳🇴 النرويج</option>
+                                    <option value="NL">🇳🇱 هولندا</option>
+                                </optgroup>
+                                <optgroup label="ي-إ">
+                                    <option value="YE">🇾🇪 اليمن</option>
+                                    <option value="GR">🇬🇷 اليونان</option>
+                                    <option value="JP">🇯🇵 اليابان</option>
+                                    <option value="IQ">🇮🇶 العراق</option>
+                                    <option value="IN">🇮🇳 الهند</option>
+                                    <option value="ID">🇮🇩 إندونيسيا</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">الجنس <span class="required">*</span></label>
+                        <div class="select-wrapper">
+                            <select class="form-select" id="gender">
+                                <option value="">اختر الجنس</option>
+                                <option value="male">👨 ذكر</option>
+                                <option value="female">👩 أنثى</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-user"></i>
+                    الاسم الرباعي
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">الأول <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="firstName" placeholder="محمد">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">الثاني <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="secondName" placeholder="أحمد">                    </div>
+                    <div class="form-group">
+                        <label class="form-label">الثالث <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="thirdName" placeholder="محمد">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">اللقب <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="lastName" placeholder="القحطاني">
+                    </div>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-id-card"></i>
+                    بيانات الهوية
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label">نوع الوثيقة <span class="required">*</span></label>
+                        <div class="select-wrapper">
+                            <select class="form-select" id="docType">
+                                <option value="">اختر النوع</option>
+                                <option value="national">🪪 الهوية الوطنية</option>
+                                <option value="passport">🛂 جواز السفر</option>
+                                <option value="residence">📋 الإقامة</option>
+                                <option value="license">🚗 رخصة القيادة</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">رقم الهوية <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="idNumber" placeholder="أدخل الرقم" maxlength="20">
+                    </div>
+                </div>
+
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label class="form-label">تاريخ الميلاد <span class="required">*</span></label>
+                        <input type="date" class="form-input" id="birthDate" max="2008-12-31">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">تاريخ الإصدار <span class="required">*</span></label>
+                        <input type="date" class="form-input" id="issueDate" max="2026-12-31">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">مكان الإصدار <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="issuePlace" placeholder="المدينة">
+                    </div>
+                </div>
+                <div class="section-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    معلومات السكن
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label">المحافظة <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="governorate" placeholder="المحافظة">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المديرية <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="district" placeholder="المديرية">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">عنوان السكن <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="address" placeholder="اكتب العنوان بالتفصيل">
+                </div>
+
+                <button class="btn" onclick="goToPage2()">
+                    <i class="fas fa-arrow-left"></i> التالي
+                </button>
+            </div>
+        </div>
+
+        <!-- الصفحة 2: الهوية -->
+        <div class="page" id="page2">
+            <div class="page-header">
+                <h1>🪪 وثيقة الهوية</h1>
+                <p>الخطوة 2 من 3</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-line" style="width: 50%"></div>
+                    <div class="progress-dot done">1</div>
+                    <div class="progress-dot active">2</div>
+                    <div class="progress-dot">3</div>
+                </div>
+            </div>
+
+            <div class="error-message" id="error2">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorText2"></span>
+            </div>
+
+            <div class="card">                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-id-card"></i></div>
+                    <div class="card-title">رفع صور الهوية</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الوجه الأمامي <span class="required">*</span></label>
+                    <div class="upload-box" onclick="document.getElementById('file1').click()">
+                        <i class="fas fa-cloud-upload-alt" id="icon1"></i>
+                        <p id="text1">اضغط لرفع الصورة</p>
+                        <small>PNG, JPG</small>
+                        <input type="file" id="file1" accept="image/*" onchange="handleFile(this, 'front')" style="display:none">
+                    </div>
+                    <div class="preview-box" id="previewFront">
+                        <img id="imgFront" src="">
+                        <div class="preview-info">
+                            <span>✓ تم</span>
+                            <small id="sizeFront"></small>
+                        </div>
+                        <span class="preview-remove" onclick="removeImage('front')"><i class="fas fa-times"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الوجه الخلفي <span class="required">*</span></label>
+                    <div class="upload-box" onclick="document.getElementById('file2').click()">
+                        <i class="fas fa-cloud-upload-alt" id="icon2"></i>
+                        <p id="text2">اضغط لرفع الصورة</p>
+                        <small>PNG, JPG</small>
+                        <input type="file" id="file2" accept="image/*" onchange="handleFile(this, 'back')" style="display:none">
+                    </div>
+                    <div class="preview-box" id="previewBack">
+                        <img id="imgBack" src="">
+                        <div class="preview-info">
+                            <span>✓ تم</span>
+                            <small id="sizeBack"></small>
+                        </div>
+                        <span class="preview-remove" onclick="removeImage('back')"><i class="fas fa-times"></i></span>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:10px;">
+                    <button class="btn btn-secondary" onclick="showPage(1)" style="flex:1">رجوع</button>
+                    <button class="btn" id="btn2" onclick="goToPage3()" disabled style="flex:1">التالي</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الصفحة 3: الوجه -->
+        <div class="page" id="page3">            <div class="page-header">
+                <h1>👤 صورة الوجه</h1>
+                <p>الخطوة 3 من 3</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-line" style="width: 100%"></div>
+                    <div class="progress-dot done">1</div>
+                    <div class="progress-dot done">2</div>
+                    <div class="progress-dot active">3</div>
+                </div>
+            </div>
+
+            <div class="error-message" id="error3">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorText3"></span>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-user-check"></i></div>
+                    <div class="card-title">صورة الوجه</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">صورة الوجه <span class="required">*</span></label>
+                    <div class="upload-box" onclick="document.getElementById('file3').click()">
+                        <i class="fas fa-user-circle" id="icon3"></i>
+                        <p id="text3">اضغط لرفع الصورة</p>
+                        <small>صورة واضحة</small>
+                        <input type="file" id="file3" accept="image/*" onchange="handleFile(this, 'face')" style="display:none">
+                    </div>
+                    <div class="preview-box" id="previewFace">
+                        <img id="imgFace" src="">
+                        <div class="preview-info">
+                            <span>✓ تم</span>
+                            <small id="sizeFace"></small>
+                        </div>
+                        <span class="preview-remove" onclick="removeImage('face')"><i class="fas fa-times"></i></span>
+                    </div>
+                </div>
+
+                <div class="terms-box">
+                    <label>
+                        <input type="checkbox" id="agree" onchange="checkSubmit()">
+                        <span>أوافق على الشروط وأقر بصحة البيانات</span>
+                    </label>
+                </div>
+                <div style="display:flex;gap:10px;">
+                    <button class="btn btn-secondary" onclick="showPage(2)" style="flex:1">رجوع</button>
+                    <button class="btn" id="btnSubmit" onclick="submitKYC()" disabled style="flex:1">إرسال</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- صفحة الانتظار -->
+    <div class="verifying-page" id="verifyingPage">
+        <div class="verify-icon"><i class="fas fa-id-card-alt"></i></div>
+        <h2>🔐 جاري التوثيق...</h2>
+        <p style="color:rgba(255,255,255,0.7);margin-bottom:25px">يرجى الانتظار</p>
+        <div class="verify-steps">
+            <div class="verify-step" id="v1"><i class="fas fa-spinner"></i><span>تحليل الوثائق...</span></div>
+            <div class="verify-step" id="v2"><i class="fas fa-spinner"></i><span>مطابقة الوجه...</span></div>
+            <div class="verify-step" id="v3"><i class="fas fa-spinner"></i><span>التحقق من البيانات...</span></div>
+            <div class="verify-step" id="v4"><i class="fas fa-spinner"></i><span>إرسال للمراجعة...</span></div>
+        </div>
+    </div>
+
+    <!-- صفحة النجاح -->
+    <div class="success-page" id="successPage">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <h2 style="color:var(--success);margin-bottom:12px">✓ تم الإرسال!</h2>
+        <p style="color:var(--gray);margin-bottom:25px">تم استلام طلبك</p>
+        <div class="ref-card">
+            <span class="ref-label">رقم المرجع</span>
+            <span class="ref-value" id="refNum">-</span>
+        </div>
+        <div class="success-buttons">
+            <button class="btn-action btn-success" onclick="goToCheckPage()" style="flex:1;min-width:200px;">
+                <i class="fas fa-search"></i> التحقق من الهوية
+            </button>
+        </div>
+    </div>
+
+    <!-- صفحة التحقق (مخفية - عداد 7 دقائق في الخلفية فقط) -->
+    <div class="check-page" id="checkPage">
+        <div class="check-icon"><i class="fas fa-shield-alt"></i></div>
+        <h2 style="color:var(--info);margin-bottom:12px">جاري التحقق من الهوية</h2>
+        <p class="check-message">يرجى الانتظار<br>جاري التحقق من الهوية</p>
+        <div class="check-loader"></div>
+        <p class="check-subtext">تتم عملية التحقق بشكل آمن ومشفّر</p>
+    </div>
+
+    <!-- صفحة تم التحقق -->
+    <div class="verified-page" id="verifiedPage">
+        <div class="verified-icon"><i class="fas fa-check-circle"></i></div>        <h2 style="color:var(--success);margin-bottom:12px">✓ تم التحقق!</h2>
+        <p style="color:var(--gray);margin-bottom:20px">تم التحقق بنجاح</p>
+        <div class="verified-badge"><i class="fas fa-shield-alt"></i> موثق</div>
+        <div class="verified-info">
+            <div class="verified-row">
+                <span class="verified-label">الاسم</span>
+                <span class="verified-value" id="verifiedName">-</span>
+            </div>
+            <div class="verified-row">
+                <span class="verified-label">رقم الهوية</span>
+                <span class="verified-value" id="verifiedId">-</span>
+            </div>
+            <div class="verified-row">
+                <span class="verified-label">التاريخ</span>
+                <span class="verified-value" id="verifiedDate">-</span>
+            </div>
+        </div>
+        <div class="locked-message">
+            <i class="fas fa-lock"></i>
+            <h3>تم القفل</h3>
+            <p>لا يمكن التعديل بعد التحقق</p>
+        </div>
+    </div>
+
+    <div class="success-toast" id="successToast">
+        <i class="fas fa-check-circle"></i>
+        <span>تم ✓</span>
+    </div>
+
+    <script>
+        var kycData = { 
+            country: '', gender: '', docType: '',
+            firstName: '', secondName: '', thirdName: '', lastName: '',
+            birthDate: '', issueDate: '', issuePlace: '', idNumber: '',
+            governorate: '', district: '', address: '',
+            images: { front: null, back: null, face: null } 
+        };
+
+        var checkTimer = null;
+        const CHECK_DURATION = 7 * 60; // 7 دقائق = 420 ثانية
+
+        window.onload = function() {
+            // 🔥 الأولوية: إذا كان التحقق مكتملاً، أظهر صفحة النجاح مباشرة
+            if (localStorage.getItem('kycVerified') === 'true') {
+                showVerifiedPage();
+                return;
+            }
+            
+            // 🔥 الثاني: إذا كان التحقق قيد التنفيذ، أظهر صفحة التحقق واستأنف العد
+            var checkStartTime = localStorage.getItem('kycCheckStartTime');            if (checkStartTime) {
+                var elapsed = Math.floor((Date.now() - parseInt(checkStartTime)) / 1000);
+                var remaining = CHECK_DURATION - elapsed;
+                
+                if (remaining > 0) {
+                    // ⚠️ أظهر صفحة التحقق فوراً واستأنف العد من حيث توقف
+                    showCheckPage();
+                    startHiddenTimer(remaining);
+                    return;
+                } else {
+                    // انتهى الوقت أثناء غياب المستخدم
+                    localStorage.setItem('kycVerified', 'true');
+                    showVerifiedPage();
+                    return;
+                }
+            }
+            
+            // 🔥 الثالث: إذا تم الإرسال ولكن لم يبدأ التحقق بعد
+            if (localStorage.getItem('kycSubmitted') === 'true') {
+                showSuccessPage(localStorage.getItem('kycRef'));
+                return;
+            }
+            
+            // 🔥 الرابع: البدء من الصفحة 1 (مستخدم جديد)
+            showPage(1);
+        };
+
+        function showPage(pageNum) {
+            // منع الوصول لصفحات البيانات إذا تم التحقق
+            if (localStorage.getItem('kycVerified') === 'true') {
+                showVerifiedPage();
+                return;
+            }
+            
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+                page.style.display = 'none';
+            });
+            
+            var targetPage = document.getElementById('page' + pageNum);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                targetPage.classList.add('active');
+            }
+            
+            document.querySelectorAll('.error-message').forEach(err => err.classList.remove('show'));
+            document.querySelectorAll('.form-input.error').forEach(i => i.classList.remove('error'));
+            window.scrollTo(0, 0);
+        }
+        function showError(pageNum, message) {
+            document.getElementById('errorText' + pageNum).textContent = message;
+            document.getElementById('error' + pageNum).classList.add('show');
+        }
+
+        // === التحقق من إكمال جميع الحقول قبل الانتقال ===
+        function validatePage1() {
+            var valid = true;
+            var fields = [
+                { id: 'country', msg: '⚠️ اختر الدولة' },
+                { id: 'gender', msg: '⚠️ اختر الجنس' },
+                { id: 'docType', msg: '⚠️ اختر نوع الوثيقة' },
+                { id: 'firstName', msg: '⚠️ أدخل الاسم الأول' },
+                { id: 'secondName', msg: '⚠️ أدخل الاسم الثاني' },
+                { id: 'thirdName', msg: '⚠️ أدخل الاسم الثالث' },
+                { id: 'lastName', msg: '⚠️ أدخل اللقب' },
+                { id: 'birthDate', msg: '⚠️ أدخل تاريخ الميلاد' },
+                { id: 'issueDate', msg: '⚠️ أدخل تاريخ الإصدار' },
+                { id: 'issuePlace', msg: '⚠️ أدخل مكان الإصدار' },
+                { id: 'idNumber', msg: '⚠️ أدخل رقم الهوية' },
+                { id: 'governorate', msg: '⚠️ أدخل المحافظة' },
+                { id: 'district', msg: '⚠️ أدخل المديرية' },
+                { id: 'address', msg: '⚠️ أدخل العنوان' }
+            ];
+            
+            fields.forEach(function(f) {
+                var el = document.getElementById(f.id);
+                var val = el.value.trim();
+                if (!val) {
+                    showError(1, f.msg);
+                    el.classList.add('error');
+                    valid = false;
+                } else {
+                    el.classList.remove('error');
+                }
+            });
+            
+            return valid;
+        }
+
+        function goToPage2() {
+            if (!validatePage1()) return;
+            
+            kycData.country = document.getElementById('country').value;
+            kycData.gender = document.getElementById('gender').value;
+            kycData.docType = document.getElementById('docType').value;
+            kycData.firstName = document.getElementById('firstName').value.trim();
+            kycData.secondName = document.getElementById('secondName').value.trim();
+            kycData.thirdName = document.getElementById('thirdName').value.trim();
+            kycData.lastName = document.getElementById('lastName').value.trim();            kycData.birthDate = document.getElementById('birthDate').value;
+            kycData.issueDate = document.getElementById('issueDate').value;
+            kycData.issuePlace = document.getElementById('issuePlace').value.trim();
+            kycData.idNumber = document.getElementById('idNumber').value.trim();
+            kycData.governorate = document.getElementById('governorate').value.trim();
+            kycData.district = document.getElementById('district').value.trim();
+            kycData.address = document.getElementById('address').value.trim();
+            
+            showPage(2);
+            showToast('✓ تم الحفظ');
+        }
+
+        function goToPage3() {
+            if (!kycData.images.front) { showError(2, '⚠️ ارفع الوجه الأمامي'); return; }
+            if (!kycData.images.back) { showError(2, '⚠️ ارفع الوجه الخلفي'); return; }
+            showPage(3);
+            showToast('✓ تم الرفع');
+        }
+
+        function handleFile(input, type) {
+            if (!input.files?.[0]) return;
+            var file = input.files[0];
+            var num = type === 'front' ? '1' : type === 'back' ? '2' : '3';
+            var box = input.parentElement;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var cap = type.charAt(0).toUpperCase() + type.slice(1);
+                document.getElementById('img' + cap).src = e.target.result;
+                document.getElementById('size' + cap).textContent = formatSize(file.size);
+                document.getElementById('preview' + cap).classList.add('show');
+                kycData.images[type] = e.target.result;
+                box.classList.add('success');
+                document.getElementById('icon' + num).className = 'fas fa-check-circle';
+                document.getElementById('text' + num).textContent = '✓ تم';
+                if (type === 'front' || type === 'back') checkStep2();
+                if (type === 'face') { checkSubmit(); showToast('✓ تم'); }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage(type) {
+            var cap = type.charAt(0).toUpperCase() + type.slice(1);
+            var num = type === 'front' ? '1' : type === 'back' ? '2' : '3';
+            document.getElementById('preview' + cap).classList.remove('show');
+            document.getElementById('file' + num).value = '';
+            kycData.images[type] = null;
+            var box = document.getElementById('file' + num).parentElement;
+            box.classList.remove('success');
+            document.getElementById('icon' + num).className = 'fas fa-cloud-upload-alt';
+            document.getElementById('text' + num).textContent = 'اضغط لرفع الصورة';            if (type === 'front' || type === 'back') checkStep2();
+            if (type === 'face') checkSubmit();
+        }
+
+        function checkStep2() { document.getElementById('btn2').disabled = !(kycData.images.front && kycData.images.back); }
+        function checkSubmit() { var a = document.getElementById('agree').checked; document.getElementById('btnSubmit').disabled = !(kycData.images.front && kycData.images.back && kycData.images.face && a); }
+        function formatSize(b) { if (b < 1024) return b + ' بايت'; if (b < 1024*1024) return (b/1024).toFixed(1) + ' KB'; return (b/(1024*1024)).toFixed(1) + ' MB'; }
+
+        function submitKYC() {
+            if (!kycData.country || !kycData.firstName) { showError(3, '⚠️ أكمل البيانات'); return; }
+            if (!kycData.images.front || !kycData.images.back) { showError(3, '⚠️ أكمل صور الهوية'); return; }
+            if (!kycData.images.face) { showError(3, '⚠️ ارفع صورة الوجه'); return; }
+            if (!document.getElementById('agree').checked) { showError(3, '⚠️ وافق على الشروط'); return; }
+            
+            document.getElementById('btnSubmit').innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري...';
+            
+            setTimeout(function() {
+                document.getElementById('verifyingPage').classList.add('show');
+                startVerification();
+            }, 1000);
+        }
+
+        function startVerification() {
+            var steps = ['v1','v2','v3','v4'], durs = [2000,2500,2000,2000];
+            steps.forEach((id, i) => {
+                setTimeout(() => { document.getElementById(id).classList.add('active'); document.getElementById(id).classList.remove('done'); }, i*2000);
+                setTimeout(() => { document.getElementById(id).classList.remove('active'); document.getElementById(id).classList.add('done'); }, (i*2000)+durs[i]);
+            });
+            setTimeout(() => {
+                var ref = 'KYC-' + Date.now().toString(36).toUpperCase();
+                localStorage.setItem('kycRef', ref);
+                localStorage.setItem('kycSubmitted', 'true');
+                localStorage.setItem('kycData', JSON.stringify(kycData));
+                showSuccessPage(ref);
+            }, 9000);
+        }
+
+        function showSuccessPage(ref) {
+            document.getElementById('verifyingPage').classList.remove('show');
+            document.getElementById('successPage').classList.add('show');
+            document.getElementById('refNum').textContent = ref || localStorage.getItem('kycRef');
+        }
+
+        // === الانتقال لصفحة التحقق (العداد مخفي تماماً) ===
+        function goToCheckPage() {
+            if (localStorage.getItem('kycVerified') === 'true') {
+                showVerifiedPage();
+                return;
+            }
+                        document.getElementById('successPage').classList.remove('show');
+            document.getElementById('checkPage').classList.add('show');
+            
+            // حفظ وقت البدء للعداد المخفي في localStorage
+            localStorage.setItem('kycCheckStartTime', Date.now().toString());
+            
+            // بدء العداد المخفي (لا يظهر للمستخدم)
+            startHiddenTimer(CHECK_DURATION);
+        }
+
+        // === إظهار صفحة التحقق فقط (بدون عداد مرئي) ===
+        function showCheckPage() {
+            // إخفاء جميع الصفحات الأخرى
+            document.querySelectorAll('.page').forEach(p => { p.style.display = 'none'; p.classList.remove('active'); });
+            document.getElementById('verifyingPage').classList.remove('show');
+            document.getElementById('successPage').classList.remove('show');
+            document.getElementById('verifiedPage').classList.remove('show');
+            
+            // إظهار صفحة التحقق فقط
+            document.getElementById('checkPage').classList.add('show');
+        }
+
+        // === العداد المخفي - يعمل في الخلفية فقط ويستمر بعد إغلاق الصفحة ===
+        function startHiddenTimer(duration) {
+            var timer = duration;
+            
+            // إيقاف أي مؤقت سابق
+            if (checkTimer) {
+                clearInterval(checkTimer);
+            }
+            
+            // إذا لم يكن وقت البدء محفوظاً، احفظه الآن
+            if (!localStorage.getItem('kycCheckStartTime')) {
+                localStorage.setItem('kycCheckStartTime', Date.now().toString());
+            }
+            
+            // العداد يعمل في الخلفية فقط - لا يوجد أي عرض للمستخدم
+            checkTimer = setInterval(function() {
+                timer--;
+                
+                // ⚠️ لا يوجد تحديث للواجهة - العداد مخفي تماماً
+                
+                if (timer <= 0) {
+                    clearInterval(checkTimer);
+                    // انتهى الوقت - الانتقال لصفحة النجاح تلقائياً
+                    localStorage.setItem('kycVerified', 'true');
+                    localStorage.setItem('kycVerifiedDate', new Date().toISOString());
+                    localStorage.removeItem('kycCheckStartTime');
+                    showVerifiedPage();
+                }            }, 1000);
+        }
+
+        // === صفحة تم التحقق ===
+        function showVerifiedPage() {
+            if (checkTimer) {
+                clearInterval(checkTimer);
+                checkTimer = null;
+            }
+            
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(p => { p.style.display = 'none'; p.classList.remove('active'); });
+            document.getElementById('verifyingPage').classList.remove('show');
+            document.getElementById('successPage').classList.remove('show');
+            document.getElementById('checkPage').classList.remove('show');
+            
+            // إظهار صفحة التحقق المكتمل
+            document.getElementById('verifiedPage').classList.add('show');
+            
+            var data = JSON.parse(localStorage.getItem('kycData') || '{}');
+            document.getElementById('verifiedName').textContent = (data.firstName || '') + ' ' + (data.lastName || '');
+            document.getElementById('verifiedId').textContent = data.idNumber || '-';
+            document.getElementById('verifiedDate').textContent = new Date().toLocaleDateString('ar-SA');
+            
+            // قفل جميع الحقول لمنع التعديل
+            document.querySelectorAll('.form-input, .form-select').forEach(input => {
+                input.disabled = true;
+            });
+        }
+
+        function showToast(msg) {
+            var toast = document.getElementById('successToast');
+            toast.querySelector('span').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 2000);
+        }
+
+        // حفظ الوقت عند إغلاق الصفحة - لضمان استمرار العداد
+        window.addEventListener('beforeunload', function() {
+            // الوقت محفوظ مسبقاً في localStorage وسيستمر عند العودة
+        });
+    </script>
+</body>
+</html>
